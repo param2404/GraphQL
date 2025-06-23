@@ -20,9 +20,9 @@ const typeDefs = `#graphql
  
     type Mutation {
       addBook(title: String!, publishedYear: Int, authorId: ID!) : Book!
-      updateBook(id: ID!, title: String, publishedYear: Int, authorId: ID!) : Book!
+      updateBook(id: ID!, title: String, publishedYear: Int, authorId: ID) : String
       addAuthor(name: String!) : Author!
-      updateAuthor(id: ID!, name: String!) : Author!
+      updateAuthor(id: ID!, name: String!) : String
       deleteBook(id: ID!) : String
       deleteAuthor(id: ID!) : String
     }

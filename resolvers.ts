@@ -52,32 +52,43 @@ const resolvers = {
     },
     Mutation: {
         addBook: (_parent: any, args: any, _context: any, _info: any) => {
-            const newBook = { ...args, id: books.length + 1 }
+            const newBook = { ...args, id: (books.length + 1).toString() }
             books.push(newBook);
             return newBook;
         },
         updateBook: (_parent: any, args: any, _context: any, _info: any) => {
-            const updatedBook = { ...args }
-            books = books.map(book => book.id === args.id ? {...book, ...updatedBook } : book );
-            return updatedBook;
+            const updatedBook = { ...args,  }
+            const index = books.findIndex(book => book.id === args.id);
+            if (index >= 0) {
+                books[index] = updatedBook;
+                return "Book updated succesfully";
+            }
+            return "Book not found"
+
         },
         deleteBook: (_parent: any, args: { id: string; }, _context: any, _info: any) => {
-            books = books.filter(book => book.id === args.id);
+            const index = books.findIndex(book => book.id === args.id);
+            books.splice(index,1);
             return "Book Deleted Successfully";
         },
 
         addAuthor: (_parent: any, args: any, _context: any, _info: any) => {
-            const newAuthor = { ...args, id: authors.length + 1 }
+            const newAuthor = { ...args, id: (authors.length + 1).toString() }
             authors.push(newAuthor);
             return newAuthor;
         },
         updateAuthor: (_parent: any, args: any, _context: any, _info: any) => {
             const updatedAuthor = { ...args }
-            authors = authors.map(author => author.id === args.id ? {...author, ...updatedAuthor} : author );
-            return updatedAuthor;
+            const index = authors.findIndex(author => author.id === args.id);
+            if (index >= 0) {
+                authors[index] = updatedAuthor;
+                return "Author updated succesfully";
+            }
+            return "Author not found"
         },
         deleteAuthor: (_parent: any, args: { id: string; }, _context: any, _info: any) => {
-            authors = authors.filter(author => author.id === args.id);
+            const index = authors.findIndex(author => author.id === args.id);
+            authors.splice(index,1);
             return "Author Deleted Successfully";
         }
     }
